@@ -19,16 +19,12 @@ class ForumService {
 
   async replyIssue(data, email) {
     try {
-      let issue = await Models.Issue.findOne({ where: { email: email, question: data.question, is_delete: { [Op.ne]: 1 }} })
-
       return await Models.Issue.update(
         {
           answer: data.answer
         },
         { returning: true, where: { email: email, question: data.question } }
       )
-
-      return newIssue
     } catch (e) {
       Logger.error(e)
       return null
@@ -57,12 +53,12 @@ class ForumService {
 
   async createIntent(data, email) {
     try {
-      let newIssue = await Models.Issue.create({
+      let newIntent = await Models.Intent.create({
         email: email,
         question: data.question,
         anwer: data.answer
       })
-      return newIssue
+      return newIntent
     } catch (e) {
       Logger.error(e)
       return null
@@ -71,8 +67,8 @@ class ForumService {
 
   async getIntent(email) {
     try {
-      let issue = await Models.Issue.find({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
-      return issue
+      let intent = await Models.Issue.find({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
+      return intent
     } catch (e) {
       Logger.error(e)
       return null
