@@ -1,0 +1,103 @@
+.customers-table table{
+    border-radius: 4px;
+  }
+  
+.customers-table table, th, td {
+    border: solid 1px #eeeeee;
+    max-width: 450px;
+}
+
+.customers-table tr{
+    height: 45px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #667190;
+}
+
+.customers-table td{
+    height: 45px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #667190;
+}
+
+.blank-row {
+    height: 45px;
+  }
+
+.customers-table {
+    margin-top: 25px;
+  }
+  
+  .customers-table .pt-button{
+    width: 140px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #e9eef1;
+  }
+  
+  .customers-table .rc-table {
+    width: 100%;
+    margin: 22px 0;
+    border: solid 1px #eeeeee;
+  }
+  
+  .customers-table .rc-table td {
+    border-left: solid 1px #eeeeee;
+  }
+  .customers-table .rc-table-thead {
+    box-shadow: 0 4px 6px -6px #222;
+  }
+  .customers-table .rc-table-thead th {
+    border-left: solid 1px #eeeeee;
+  }
+
+  .scroll-responsive table{
+    margin: auto;
+    overflow-x: auto;
+  }
+.download-table-xls-button {
+    color: #fff !important;
+    font-size: 12px !important;
+    background-color: #20a8d8;
+    border-color: #20a8d8;
+    display: inline-block;
+    font-weight: 400;
+    color: #23282c;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: 0.29rem 0.75rem !important;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+  @media all and (max-width : 2040px){
+    .scroll-responsive{
+      overflow-x: auto;
+    }
+  }
+
+  .model-preview-question .modal-content{
+    width: fit-content !important;
+    margin: 0 auto !important;
+  }
+  .model-preview-question .modal-content .modal-body{
+    padding: 15px 20px;
+  }

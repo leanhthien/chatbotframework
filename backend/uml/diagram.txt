@@ -1,0 +1,87 @@
+@startuml
+class Group{
+    id
+    Name
+    description
+    is_delete
+    courseId
+    code
+}
+
+
+class User {
+    id
+    email
+    username
+    password
+    fullname
+    active
+    is_delete
+    number_rand
+    role
+}
+
+
+class Course{
+    id
+    code
+    name
+    description
+    is_delete
+}
+
+User "0..*" -- "0..*" Course
+
+User "0..*" -- "0..*" Group
+
+Course "1" -- "0..*" Group
+
+User "1" -- "0..*" Submission
+
+class Exercise{
+    id
+    Name
+    code
+    description
+    is_delete
+    type
+}
+
+Course "1" -- "1..*" Exercise
+
+class Question{
+    id
+    Name
+    order
+    sourcecode_name
+    sourcecode
+    solution_name
+    solution
+    testcase_name
+    testcase
+    description
+    num_submit
+    is_delete
+}
+
+Question "0..*" -- "0..*" Group
+
+Exercise "1" -- "1..*" Question
+
+class Submission{
+    id
+    type
+    name
+    data
+    log
+    note
+    num_success
+    num_testcase
+    status
+    questionId
+    is_delete
+}
+
+Question "1" -- "1..*" Submission
+
+@enduml

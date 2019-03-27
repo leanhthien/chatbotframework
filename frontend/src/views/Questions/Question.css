@@ -1,0 +1,206 @@
+
+.question-tooltip .tooltip-inner{
+    max-width: fit-content;
+}
+
+.icon_handle_question{
+    margin-left: 10px;
+    font-size: 17px;
+}
+.model-preview-question .modal-content{
+    width: fit-content !important;
+    margin: 0 auto !important;
+  }
+  .model-preview-question .modal-content .modal-body{
+    padding: 15px 20px;
+  }
+  .question-description span{
+      background-color: transparent !important;
+  }
+.file-upload {
+    display: none;
+}
+.custom-file-upload i{
+    margin-right: 5px;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 4px 10px;
+    cursor: pointer;
+    width: 240px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.question-description {
+    max-width: 500px;
+}
+.question-review-show-testcase {
+  overflow-x: auto;
+  width: 250px;
+  max-height: 500px;
+}
+
+.tooltip [class$="inner"] {
+  background-color: #e7edf1;
+  border: 1px solid #e7edf1;
+}
+
+.tooltip [class$="arrow"] {
+  border-top: 5px solid #e7edf1 !important;
+}
+
+.tooltip-inner {
+  font-size: 14px;
+  color: #111010;
+}
+
+.description-question-popover-body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 450px;
+  white-space: normal;
+}
+
+.description-question-popOver{
+  max-width: 490px !important;
+}
+
+@media all and (max-width: 1270px) {
+  .question-review-show-testcase {
+      width: 210px;
+  }
+}
+@media all and (max-width: 1100px) {
+  .question-review-show-testcase {
+      width: 190px;
+  }
+}
+@media all and (max-width: 1030px) {
+  .question-review-show-testcase {
+      width: 175px;
+  }
+}
+@media all and (max-width: 970px) {
+  .question-review-show-testcase {
+      width: 165px;
+  }
+}
+@media all and (max-width: 925px) {
+  .question-review-show-testcase {
+      width: 145px;
+  }
+}
+@media all and (max-width: 840px) {
+  .question-review-show-testcase {
+      width: 130px;
+  }
+}
+@media all and (max-width: 765px) {
+  .question-review-show-testcase {
+      width: 100%;
+  }
+  .question-review-show-result{
+    width: 100%;
+  }
+}
+@media all and (max-width: 1110px) {
+    .question-description {
+        max-width: 450px;
+    }
+}
+@media all and (max-width: 830px) {
+    .question-description {
+        max-width: 350px;
+    }
+}
+@media all and (max-width: 630px) {
+    .question-description {
+        max-width: 150px;
+    }
+}
+@media all and (max-width: 530px) {
+    .question-description {
+        max-width: 50px;
+    }
+    .model-preview-question .modal-content{
+        width: auto !important;
+        margin: 0 auto !important;
+      }
+      .model-preview-question .modal-content .modal-body{
+        padding: 5px 10px;
+      }
+}
+
+.RichEditor-root {
+    background: #fff;
+    border: 1px solid #ddd;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    padding: 15px 30px;
+  }
+  .RichEditor-root-scroll{
+    overflow-x: auto;
+  }
+  
+  .RichEditor-editor {
+    border-top: 1px solid #ddd;
+    cursor: text;
+    font-size: 16px;
+    margin-top: 10px;
+    height: 380px;
+    min-width: 530px;
+  }
+  
+  .RichEditor-editor .public-DraftEditorPlaceholder-root,
+  .RichEditor-editor .public-DraftEditor-content {
+    margin: 0 -15px -15px;
+    padding: 5px 15px;
+  }
+  
+  .RichEditor-editor .public-DraftEditor-content {
+    height: 300px;
+    /* overflow-y: hidden; */
+  }
+  
+  .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+    display: none;
+  }
+  
+  
+  .RichEditor-editor .rdw-option-active {
+    background-color: #999;
+  }
+
+  @media all and (max-width: 789px) {
+    .RichEditor-editor {
+        border-top: 1px solid #ddd;
+        cursor: text;
+        font-size: 16px;
+        margin-top: 10px;
+        height: 380px;
+      }
+      
+      .RichEditor-editor .public-DraftEditor-content {
+        height: 250px;
+        /* overflow-y: hidden; */
+      }
+}
+
+@media all and (max-width: 600px) {
+    .RichEditor-editor {
+        border-top: 1px solid #ddd;
+        cursor: text;
+        font-size: 16px;
+        margin-top: 10px;
+        height: 380px;
+      }
+      
+      .RichEditor-editor .public-DraftEditor-content {
+        height: 260px;
+        /* overflow-y: hidden; */
+      }
+}

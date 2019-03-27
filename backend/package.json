@@ -1,0 +1,59 @@
+{
+  "name": "auto-grading",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint src/**/*.js --ignore-pattern \"node_modules/\"",
+    "eslint-fix": "eslint src/**/*.js --ignore-pattern \"node_modules/\" --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/nqt900/auto-grading.git"
+  },
+  "keywords": [
+    "grade"
+  ],
+  "author": "thinh nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/nqt900/auto-grading/issues"
+  },
+  "homepage": "https://gitlab.com/nqt900/auto-grading#README",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.8",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.0.0",
+    "express-rate-limit": "^3.4.0",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.4.0",
+    "log4js": "^3.0.6",
+    "moment": "^2.23.0",
+    "nodemailer": "^5.0.0",
+    "path": "^0.12.7",
+    "pg": "^7.7.1",
+    "randomstring": "^1.1.5",
+    "recaptcha-verify": "^0.1.1",
+    "request": "^2.88.0",
+    "sequelize": "^4.41.2",
+    "unzip": "^0.1.11",
+    "unzipper": "^0.9.11",
+    "url-pattern": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
