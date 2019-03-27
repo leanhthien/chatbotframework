@@ -17,7 +17,7 @@ let baseOnRole = (roleId)=>{
   routes.items.push(
     {
       name: 'Forum',
-      url: '/forum/submitIssue',
+      url: '/forum/createIssue',
       icon: 'icon-user-follow'
     }
   );
@@ -38,8 +38,8 @@ let baseOnRole = (roleId)=>{
     );
     routes.items.push(
       {
-        name: 'Forum',
-        url: '/forum/submitIssue',
+        name: 'Create Intent',
+        url: '/forum/createIntent',
         icon: 'icon-user-follow'
       }
     );

@@ -26,7 +26,8 @@ const GroupAssign = React.lazy(() => import('./views/Groups/Assign'));
 const Result = React.lazy(() => import('./views/Student/Result'));
 const Permission = React.lazy(() => import('./views/Teacher/Permission'));
 const Permissions = React.lazy(() => import('./views/Teacher/PermissionMany'));
-const ForumSubmitIssue = React.lazy(() => import('./views/Forum/Create'));
+const ForumCreateIssue = React.lazy(() => import('./views/Forum/CreateIssue'));
+const ForumCreateIntent = React.lazy(() => import('./views/Forum/CreateIntent'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -59,7 +60,8 @@ const routes = [
   { path: '/courses/update/:id', name: 'CourseUpdate', component: CourseUpdate },
   { path: '/courses', name: 'Courses', component: Course },
   { path: '/results', name: 'Results', component: Result },
-  { path: '/forum/submitIssue', name: 'ForumSubmitIssue', component: ForumSubmitIssue},
+  { path: '/forum/createIssue', name: 'ForumCreateIssue', component: ForumCreateIssue },
+  { path: '/forum/createIntent', name: 'ForumCreateIntent', component: ForumCreateIntent },
 ];
 
 export default routes;

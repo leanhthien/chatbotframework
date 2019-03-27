@@ -56,7 +56,7 @@ class ForumService {
       let newIntent = await Models.Intent.create({
         email: email,
         question: data.question,
-        anwer: data.answer
+        answer: data.answer
       })
       return newIntent
     } catch (e) {
@@ -67,7 +67,7 @@ class ForumService {
 
   async getIntent(email) {
     try {
-      let intent = await Models.Issue.find({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
+      let intent = await Models.Intent.find({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
       return intent
     } catch (e) {
       Logger.error(e)

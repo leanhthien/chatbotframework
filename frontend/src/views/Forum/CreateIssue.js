@@ -60,10 +60,10 @@ class Forum extends Component {
       let payload = {
         "question": this.state.question,
       }
-      let response = await axios.post(apiBaseUrl + `forum/submitIssue`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
+      let response = await axios.post(apiBaseUrl + `forum/createIssue`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
         return Swal('Success', '', 'success').then(result => {
-          return this.props.history.push(`/forum/submitIssue`);
+          return this.props.history.push(`/forum/createIssue`);
         })
       }
     }

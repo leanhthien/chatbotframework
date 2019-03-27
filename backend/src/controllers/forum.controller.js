@@ -50,8 +50,8 @@ class ForumController {
 
   async createIntent(req, res) {
     try {
-      let issue = await this.service.createIntent(req.body, req.email)
-      return Response.OK(res, issue)
+      let intent = await this.service.createIntent(req.body, req.email)
+      return Response.OK(res, intent)
     } catch (e) {
       Logger.error(e)
       return Response.ERROR(res, {}, Response.Message.F000001)
@@ -60,8 +60,8 @@ class ForumController {
 
   async getIntent(req, res) {
     try {
-      let issue = await this.service.getIntent(req.email)
-      return Response.OK(res, issue)
+      let intent = await this.service.getIntent(req.email)
+      return Response.OK(res, intent)
     } catch (e) {
       Logger.error(e)
       return Response.ERROR(res, {}, Response.Message.F000001)

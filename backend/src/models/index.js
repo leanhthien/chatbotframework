@@ -16,7 +16,8 @@ const models = {
   Submission: sequelize.import(path.resolve(path.join(__dirname, '/submission'))),
   Group: sequelize.import(path.resolve(path.join(__dirname, '/group'))),
   Limit: sequelize.import(path.resolve(path.join(__dirname, '/limit'))),
-  Issue: sequelize.import(path.resolve(path.join(__dirname, '/issue')))
+  Issue: sequelize.import(path.resolve(path.join(__dirname, '/issue'))),
+  Intent: sequelize.import(path.resolve(path.join(__dirname, '/intent')))
 }
 
 Object.keys(models).forEach(key => {

@@ -4,10 +4,6 @@ const intent = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     question: {
       type: DataTypes.STRING,
       allowNull: true
@@ -23,8 +19,8 @@ const intent = (sequelize, DataTypes) => {
   },
   {
     hooks: {
-      beforeCreate: (issue) => {
-        issue.is_delete = 0
+      beforeCreate: (intent) => {
+        intent.is_delete = 0
       }
     }
   })
