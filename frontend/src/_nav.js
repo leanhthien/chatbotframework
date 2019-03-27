@@ -36,6 +36,13 @@ let baseOnRole = (roleId)=>{
         icon: 'icon-basket-loaded'
       }
     );
+    routes.items.push(
+      {
+        name: 'Forum',
+        url: '/forum/submitIssue',
+        icon: 'icon-user-follow'
+      }
+    );
   }
   else if(roleId === 3 || roleId === 2){
   }
