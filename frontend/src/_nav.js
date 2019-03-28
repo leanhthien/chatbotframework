@@ -17,6 +17,13 @@ let baseOnRole = (roleId)=>{
   routes.items.push(
     {
       name: 'Forum',
+      url: '/forum/issue',
+      icon: 'icon-user-follow'
+    }
+  );
+  routes.items.push(
+    {
+      name: 'Issue',
       url: '/forum/createIssue',
       icon: 'icon-user-follow'
     }

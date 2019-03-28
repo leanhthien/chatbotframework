@@ -8,26 +8,6 @@ class ForumController {
       this.service = new ForumService()
   }
 
-  async createIssue(req, res) {
-    try {
-      let issue = await this.service.createIssue(req.body, req.email)
-      return Response.OK(res, issue)
-    } catch (e) {
-      Logger.error(e)
-      return Response.ERROR(res, {}, Response.Message.F000001)
-    }
-  }
-
-  async replyIssue(req, res) {
-    try {
-      let issue = await this.service.replyIssue(req.body, req.email)
-      return Response.OK(res, issue)
-      } catch (e) {
-        Logger.error(e)
-        return Response.ERROR(res, {}, Response.Message.F000001)
-      }
-  }
-
   async getIssue(req, res) {
     try {
       let issue = await this.service.getIssue(req.body, req.email)
@@ -48,6 +28,46 @@ class ForumController {
     }
   }
 
+  async createIssue(req, res) {
+    try {
+      let issue = await this.service.createIssue(req.body, req.email)
+      return Response.OK(res, issue)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+  async replyIssue(req, res) {
+    try {
+      let issue = await this.service.replyIssue(req.body, req.email)
+      return Response.OK(res, issue)
+      } catch (e) {
+        Logger.error(e)
+        return Response.ERROR(res, {}, Response.Message.F000001)
+      }
+  }
+
+  async getIntent(req, res) {
+    try {
+      let intent = await this.service.getIntent(req.body, req.email)
+      return Response.OK(res, intent)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+  async getAllIntents(req, res) {
+    try {
+      let intent = await this.service.getAllIntents(req.email)
+      return Response.OK(res, intent)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
   async createIntent(req, res) {
     try {
       let intent = await this.service.createIntent(req.body, req.email)
@@ -58,15 +78,7 @@ class ForumController {
     }
   }
 
-  async getIntent(req, res) {
-    try {
-      let intent = await this.service.getIntent(req.email)
-      return Response.OK(res, intent)
-    } catch (e) {
-      Logger.error(e)
-      return Response.ERROR(res, {}, Response.Message.F000001)
-    }
-  }
+  
 
 }
 

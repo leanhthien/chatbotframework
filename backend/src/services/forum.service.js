@@ -4,11 +4,32 @@ const CsvtojsonV2 = require('csvtojson')
 
 class ForumService {
 
+  async getIssue(data, email) {
+    try {
+      let issue = await Models.Issue.findOne({ where: { email: email, question: data.question } })
+      return issue
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async getAllIssues(email) {
+    try {
+      let issues = await Models.Issue.findAll({ where: { email: email } })
+      return issues
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
   async createIssue(data, email) {
     try {
       let newIssue = await Models.Issue.create({
         email: email,
-        question: data.question
+        question: data.question,
+        answer: ""
       })
       return newIssue
     } catch (e) {
@@ -31,20 +52,20 @@ class ForumService {
     }
   }
 
-  async getIssue(data, email) {
+  async getIntent(data, email) {
     try {
-      let issue = await Models.Issue.findOne({ where: { email: email, question: data.question, is_delete: { [Op.ne]: 1 }} })
-      return issue
+      let intent = await Models.Intent.findOne({ where: { email: email, question: data.question } })
+      return intent
     } catch (e) {
       Logger.error(e)
       return null
     }
   }
 
-  async getAllIssues(email) {
+  async getAllIntents(email) {
     try {
-      let issues = await Models.Issue.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
-      return issues
+      let intent = await Models.Intent.findAll({ where: { email: email } })
+      return intent
     } catch (e) {
       Logger.error(e)
       return null
@@ -65,15 +86,7 @@ class ForumService {
     }
   }
 
-  async getIntent(email) {
-    try {
-      let intent = await Models.Intent.find({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
-      return intent
-    } catch (e) {
-      Logger.error(e)
-      return null
-    }
-  }
+  
 
 }
 

@@ -87,7 +87,7 @@ class Forum extends Component {
             <CardGroup>
               <Card>
                 <CardHeader>
-                  Create a issue
+                  Submit issues
                 </CardHeader>
                 <CardBody>
                   <Form action="" method="post" className="form-horizontal">

@@ -26,8 +26,10 @@ const GroupAssign = React.lazy(() => import('./views/Groups/Assign'));
 const Result = React.lazy(() => import('./views/Student/Result'));
 const Permission = React.lazy(() => import('./views/Teacher/Permission'));
 const Permissions = React.lazy(() => import('./views/Teacher/PermissionMany'));
-const ForumCreateIssue = React.lazy(() => import('./views/Forum/CreateIssue'));
-const ForumCreateIntent = React.lazy(() => import('./views/Forum/CreateIntent'));
+const Issue = React.lazy(() => import('./views/Forum/Issue'));
+const ReplyIssue = React.lazy(() => import('./views/Forum/ReplyIssue'));
+const Intent = React.lazy(() => import('./views/Forum/Intent'));
+const CreateIntent = React.lazy(() => import('./views/Forum/CreateIntent'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -60,8 +62,13 @@ const routes = [
   { path: '/courses/update/:id', name: 'CourseUpdate', component: CourseUpdate },
   { path: '/courses', name: 'Courses', component: Course },
   { path: '/results', name: 'Results', component: Result },
-  { path: '/forum/createIssue', name: 'ForumCreateIssue', component: ForumCreateIssue },
-  { path: '/forum/createIntent', name: 'ForumCreateIntent', component: ForumCreateIntent },
+  { path: '/forum/issue', name: 'Issue', component: Issue },
+  { path: '/forum/allIssues', name: 'All Issues', component: Issue },
+  { path: '/forum/replyIssues', name: 'Reply Issue', component: ReplyIssue },
+  { path: '/forum/intent', name: 'Intent', component: Intent },
+  { path: '/forum/createIntent', name: 'Create Intent', component: CreateIntent },
+ 
+
 ];
 
 export default routes;

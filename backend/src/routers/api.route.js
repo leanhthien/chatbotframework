@@ -89,6 +89,7 @@ api.post('/forum/createIssue', RequireLogin, forumController.createIssue.bind(fo
 api.post('/forum/replyIssue', RequireLogin, forumController.replyIssue.bind(forumController))
 //api.put('/forum/:id/Issue', RequireLogin, forumController.createIssue.bind(forumController))
 api.get('/forum/intent', RequireLogin, forumController.getIntent.bind(forumController))
+api.get('/forum/allIntents', RequireLogin, forumController.getAllIntents.bind(forumController))
 api.post('/forum/createIntent', RequireLogin, forumController.createIntent.bind(forumController))
 //api.delete('/forum/deleteProblem', RequireLogin, forumController.createProblem.bind(forumController))
 
