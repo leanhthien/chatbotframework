@@ -93,17 +93,13 @@ class Forum extends Component {
                 </CardHeader>
                 <CardBody>
                   <Form action="" method="post" className="form-horizontal">
-                    <FormGroup row>
-                      <Label sm="5" htmlFor="input-normal">Question</Label>
-                      <Col sm="6">
-                        <Input type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />
-                      </Col>
+                    <FormGroup>
+                      <Label htmlFor="input-normal">Question</Label>
+                      <Input type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />                     
                     </FormGroup>
-                    <FormGroup row>
-                      <Label sm="5" htmlFor="input-normal">Answer</Label>
-                      <Col sm="6">
-                        <Input type="text" id="input-normal" value={this.state.answer} name="input-normal" placeholder="Answer" onChange={event => this.setState({ answer: event.target.value })} />
-                      </Col>
+                    <FormGroup>
+                      <Label htmlFor="input-normal">Answer</Label>
+                      <Input type="text" id="input-normal" value={this.state.answer} name="input-normal" placeholder="Answer" onChange={event => this.setState({ answer: event.target.value })} />
                     </FormGroup>
                   </Form>
                 </CardBody>

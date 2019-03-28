@@ -1,7 +1,6 @@
 const Logger = require('../libs/logger')
 const Models = require('../models/index')
-const CsvtojsonV2 = require('csvtojson')
-
+const Op = Models.Sequelize.Op
 class ForumService {
 
   async getIssue(data, email) {
@@ -29,7 +28,7 @@ class ForumService {
       let newIssue = await Models.Issue.create({
         email: email,
         question: data.question,
-        answer: ""
+        answer: ''
       })
       return newIssue
     } catch (e) {

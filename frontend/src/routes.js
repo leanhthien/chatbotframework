@@ -26,6 +26,7 @@ const GroupAssign = React.lazy(() => import('./views/Groups/Assign'));
 const Result = React.lazy(() => import('./views/Student/Result'));
 const Permission = React.lazy(() => import('./views/Teacher/Permission'));
 const Permissions = React.lazy(() => import('./views/Teacher/PermissionMany'));
+const Forum = React.lazy(() => import('./views/Forum/Forum'));
 const Issue = React.lazy(() => import('./views/Forum/Issue'));
 const ReplyIssue = React.lazy(() => import('./views/Forum/ReplyIssue'));
 const Intent = React.lazy(() => import('./views/Forum/Intent'));
@@ -62,11 +63,12 @@ const routes = [
   { path: '/courses/update/:id', name: 'CourseUpdate', component: CourseUpdate },
   { path: '/courses', name: 'Courses', component: Course },
   { path: '/results', name: 'Results', component: Result },
+  //{ path: '/forum', name: 'Forum', component: Forum },
   { path: '/forum/issue', name: 'Issue', component: Issue },
-  { path: '/forum/allIssues', name: 'All Issues', component: Issue },
-  { path: '/forum/replyIssues', name: 'Reply Issue', component: ReplyIssue },
+  //{ path: '/forum/allIssues', name: 'All Issues', component: Issue },
+  { path: '/forum/replyIssue', name: 'Reply Issue', component: ReplyIssue },
   { path: '/forum/intent', name: 'Intent', component: Intent },
-  { path: '/forum/createIntent', name: 'Create Intent', component: CreateIntent },
+  { path: '/forum/createIntent', name: 'createIntent', component: CreateIntent },
  
 
 ];

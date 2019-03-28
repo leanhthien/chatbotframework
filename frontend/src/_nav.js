@@ -14,17 +14,38 @@ let baseOnRole = (roleId)=>{
       icon: 'icon-user-follow'
     }
   );
+  // routes.items.push(
+  //   {
+  //     name: 'Forum',
+  //     url: '/forum',
+  //     icon: 'icon-user-follow'
+  //   }
+  // );
   routes.items.push(
     {
-      name: 'Forum',
+      name: 'Issue',
       url: '/forum/issue',
       icon: 'icon-user-follow'
     }
   );
   routes.items.push(
     {
-      name: 'Issue',
-      url: '/forum/createIssue',
+      name: 'Reply Issue',
+      url: '/forum/replyIssue',
+      icon: 'icon-user-follow'
+    }
+  );
+  routes.items.push(
+    {
+      name: 'Intent',
+      url: '/forum/intent',
+      icon: 'icon-user-follow'
+    }
+  );
+  routes.items.push(
+    {
+      name: 'Create Intent',
+      url: '/forum/createIntent',
       icon: 'icon-user-follow'
     }
   );
@@ -41,13 +62,6 @@ let baseOnRole = (roleId)=>{
         name: 'TA',
         url: '/ta/create',
         icon: 'icon-basket-loaded'
-      }
-    );
-    routes.items.push(
-      {
-        name: 'Create Intent',
-        url: '/forum/createIntent',
-        icon: 'icon-user-follow'
       }
     );
   }

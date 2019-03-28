@@ -27,8 +27,18 @@ class Forum extends Component {
     this.apiBaseUrl = process.env.REACT_APP_DOMAIN;
     this.token = cookie.load('user_token');
     this.state = {
-      question: ""
+      popoverOpens: {},
+      role: 0,
+      question: "",
+      issues: []
     };
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle(id) {
+    var popoverOpens = { ...this.state.popoverOpens }
+    popoverOpens[id] = !this.state.popoverOpens[id]
+    this.setState({ popoverOpens });
   }
 
   async componentDidMount() {
@@ -41,7 +51,11 @@ class Forum extends Component {
 
       if (issues) {
         console.log(issues);
-       
+        issues.forEach(x => {
+          var popoverOpens = { ...this.state.popoverOpens }
+          popoverOpens[x] = false;
+          this.setState({ popoverOpens })
+        })
       }
     }
     catch (error) {
@@ -111,6 +125,16 @@ class Forum extends Component {
 
   genIssuesHistory = () => {
     let history = [];
+    if (!this.state.issues || this.state.issues.length <= 0) return history
+  
+    this.state.issues.forEach((element, index) => {
+      history.push(
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td title={element.question}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/`}>{element.question}</Link></td>
+        </tr>
+      )
+    })
     return history
   }
 

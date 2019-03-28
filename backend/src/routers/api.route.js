@@ -86,7 +86,7 @@ api.get('/results', RequireLogin, resultController.getResults.bind(resultControl
 api.get('/forum/issue', RequireLogin, forumController.getIssue.bind(forumController))
 api.get('/forum/allIssues', RequireLogin, forumController.getAllIssues.bind(forumController))
 api.post('/forum/createIssue', RequireLogin, forumController.createIssue.bind(forumController))
-api.post('/forum/replyIssue', RequireLogin, forumController.replyIssue.bind(forumController))
+api.put('/forum/replyIssue', RequireLogin, forumController.replyIssue.bind(forumController))
 //api.put('/forum/:id/Issue', RequireLogin, forumController.createIssue.bind(forumController))
 api.get('/forum/intent', RequireLogin, forumController.getIntent.bind(forumController))
 api.get('/forum/allIntents', RequireLogin, forumController.getAllIntents.bind(forumController))
