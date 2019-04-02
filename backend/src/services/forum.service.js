@@ -3,9 +3,19 @@ const Models = require('../models/index')
 const Op = Models.Sequelize.Op
 class ForumService {
 
-  async getIssue(data, email) {
+  async getIssue(issueId) {
     try {
-      let issue = await Models.Issue.findOne({ where: { email: email, question: data.question } })
+      let issue = await Models.Issue.findOne({ where: { id: issueId, is_delete: { [Op.ne]: 1 }} })
+      return issue
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async getIssues(data, email) {
+    try {
+      let issue = await Models.Issue.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
       return issue
     } catch (e) {
       Logger.error(e)
@@ -15,7 +25,7 @@ class ForumService {
 
   async getAllIssues(email) {
     try {
-      let issues = await Models.Issue.findAll({ where: { email: email } })
+      let issues = await Models.Issue.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
       return issues
     } catch (e) {
       Logger.error(e)
@@ -37,13 +47,13 @@ class ForumService {
     }
   }
 
-  async replyIssue(data, email) {
+  async replyIssue(issueId, data) {
     try {
       return await Models.Issue.update(
         {
           answer: data.answer
         },
-        { returning: true, where: { email: email, question: data.question } }
+        { returning: true, where: { id: issueId } }
       )
     } catch (e) {
       Logger.error(e)
@@ -51,9 +61,19 @@ class ForumService {
     }
   }
 
-  async getIntent(data, email) {
+  async getIntent(intentId) {
     try {
-      let intent = await Models.Intent.findOne({ where: { email: email, question: data.question } })
+      let intent = await Models.Intent.findOne({ where: { id: intentId, is_delete: { [Op.ne]: 1 }} })
+      return intent
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async getIntents(data, email) {
+    try {
+      let intent = await Models.Intent.findOne({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
       return intent
     } catch (e) {
       Logger.error(e)
@@ -63,7 +83,7 @@ class ForumService {
 
   async getAllIntents(email) {
     try {
-      let intent = await Models.Intent.findAll({ where: { email: email } })
+      let intent = await Models.Intent.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
       return intent
     } catch (e) {
       Logger.error(e)
@@ -79,6 +99,21 @@ class ForumService {
         answer: data.answer
       })
       return newIntent
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async updateIntent(intentId, data) {
+    try {
+      return await Models.Intent.update(
+        {
+          question: data.question,
+          answer: data.answer
+        },
+        { returning: true, where: { id: intentId } }
+      )
     } catch (e) {
       Logger.error(e)
       return null

@@ -27,8 +27,18 @@ class Forum extends Component {
     this.apiBaseUrl = process.env.REACT_APP_DOMAIN;
     this.token = cookie.load('user_token');
     this.state = {
-      question: ""
+      popoverOpens: {},
+      role: 0,
+      question: "",
+      issues: []
     };
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle(id) {
+    var popoverOpens = { ...this.state.popoverOpens }
+    popoverOpens[id] = !this.state.popoverOpens[id]
+    this.setState({ popoverOpens });
   }
 
   async componentDidMount() {
@@ -41,7 +51,11 @@ class Forum extends Component {
 
       if (issues) {
         console.log(issues);
-       
+        issues.forEach(x => {
+          var popoverOpens = { ...this.state.popoverOpens }
+          popoverOpens[x] = false;
+          this.setState({ popoverOpens })
+        })
       }
     }
     catch (error) {
@@ -52,8 +66,8 @@ class Forum extends Component {
   async getAllIssues() {
     try {
       let response = await axios.get(this.apiBaseUrl + 'forum/allIssues', { headers: { "Authorization": `Bearer ${this.token}` } });
-      if (response.data.data.issues) {
-        return response.data.data.issues;
+      if (response.data.data) {
+        return response.data.data;
       }
       else {
         return null;
@@ -111,54 +125,78 @@ class Forum extends Component {
 
   genIssuesHistory = () => {
     let history = [];
+    if (!this.state.issues || this.state.issues.length <= 0) return history
+  
+    this.state.issues.forEach((element, index) => {
+      history.push(
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td title={element.question}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.question}</Link></td>
+          <td title={element.answer}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.answer}</Link></td>
+        </tr>
+      )
+    })
     return history
+  }
+
+  checkViewRole = () => {
+    return (
+            <Row className="justify-content-center">
+              <Col>
+                <CardGroup>
+                  <Card>
+                    <CardHeader>
+                      Submit issues
+                    </CardHeader>
+                    <CardBody>
+                      <Row>
+                        <Col sm="12" xl="12">
+                          <Card>
+                            <CardHeader>
+                              <i className="fa fa-align-justify"></i><strong>Issues</strong>
+                            </CardHeader>
+                            <CardBody>
+                              <Table responsive striped>
+                                <thead>
+                                  <tr>
+                                    <th>No</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {this.genIssuesHistory()}
+                                </tbody>
+                              </Table>
+                            </CardBody>
+                          </Card>
+                        </Col>
+                      </Row>
+                
+                      <Form action="" method="post" className="form-horizontal">
+                        <FormGroup row>
+                          <Col>
+                            <Input sm="10" type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />                  
+                          </Col>
+                          
+                        </FormGroup>
+                      </Form>
+                    </CardBody>
+                    <CardFooter>
+                    <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                    </CardFooter>
+
+                  </Card>
+                </CardGroup>
+              </Col>
+            </Row>
+        );
   }
 
   render() {
     return (
       <div className="animated fadeIn">
-        <Row className="justify-content-center">
-          <Col>
-            <CardGroup>
-              <Card>
-                <CardHeader>
-                  Submit issues
-                </CardHeader>
-                <CardBody>
-                  <Row>
-                    <Col sm="12" xl="12">
-                      <Card>
-                        <CardHeader>
-                          <i className="fa fa-align-justify"></i><strong>Issues</strong>
-                        </CardHeader>
-                        <CardBody>
-                          <Table responsive striped>
-                            <thead>
-                              <tr>
-                                <th>No</th>
-                                <th>Question</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {this.genIssuesHistory()}
-                            </tbody>
-                          </Table>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                  </Row>
-            
-                  <Form action="" method="post" className="form-horizontal">
-                    <FormGroup row>
-                        <Input sm="10" type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />                     
-                        <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                    </FormGroup>
-                  </Form>
-                </CardBody>
-              </Card>
-            </CardGroup>
-          </Col>
-        </Row>
+        {this.checkViewRole()}
         <NotificationContainer />
       </div>
     );

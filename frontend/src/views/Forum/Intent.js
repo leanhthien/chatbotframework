@@ -61,8 +61,8 @@ class Intent extends Component {
   async getIntents() {
     try {
       let response = await axios.get(this.apiBaseUrl + 'forum/allIntents', { headers: { "Authorization": `Bearer ${this.token}` } });
-      if (response.data.data.intents) {
-        return response.data.data.intents;
+      if (response.data.data) {
+        return response.data.data;
       }
       else {
         return null;
@@ -90,11 +90,11 @@ class Intent extends Component {
   }
 
   handleAddClick(event) {
-    return this.props.history.push("/courses/create");
+    return this.props.history.push("/forum/createIntent");
   }
 
   handleEditClick(event, id) {
-    return this.props.history.push(`/courses/update/${id}`);
+    return this.props.history.push('');
   }
 
   handleRemoveClick(event, id) {
@@ -103,7 +103,7 @@ class Intent extends Component {
 
   async handleDeleteClick(event, id) {
     try {
-      let response = await axios.delete(this.apiBaseUrl + 'courses/' + id, { headers: { "Authorization": `Bearer ${this.token}` } });
+      let response = await axios.delete(this.apiBaseUrl + '' + id, { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response && response.data && response.data.code === 200) {
         return window.location.reload();
       }
@@ -123,14 +123,14 @@ class Intent extends Component {
   genAllIntents = () => {
     let group = [];
     if (!this.state.intents || this.state.intents.length <= 0) return group
-    this.state.courses.forEach((element, index) => {
+    this.state.intents.forEach((element, index) => {
       group.push(
         <tr key={element.id}>
           <td>{index + 1}</td>
-          <td title={element.description}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/courses/${element.id}/teacher`}>{element.name}</Link></td>
+          <td title={element.description}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/courses/${element.id}/teacher`}>{element.question}</Link></td>
           <td>
-            <button className="card-heelement.idader-action btn-setting btn btn-link"><i className="fa fa-edit" title='Edit course' onClick={event => this.handleEditClick(event, element.id)}></i></button>
-            <button className="card-heelement.idader-action btn-setting btn btn-link" id={`popover_${element.id}`} title='Remove course' onClick={event => this.handleRemoveClick(event, element.id)}><i className="fa fa-trash-o"></i></button>
+            <button className="card-heelement.idader-action btn-setting btn btn-link"><i className="fa fa-edit" title='Edit intent' onClick={event => this.handleEditClick(event, element.id)}></i></button>
+            <button className="card-heelement.idader-action btn-setting btn btn-link" id={`popover_${element.id}`} title='Remove intent' onClick={event => this.handleRemoveClick(event, element.id)}><i className="fa fa-trash-o"></i></button>
             <Popover placement="right" isOpen={this.state.popoverOpens[element.id]} target={`popover_${element.id}`} toggle={this.toggle}>
               <PopoverHeader>Do you want to remove <strong>{element.name}</strong>?</PopoverHeader>
               <PopoverBody>
@@ -159,6 +159,7 @@ class Intent extends Component {
                     <tr>
                       <th>No</th>
                       <th>Question</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -176,6 +177,9 @@ class Intent extends Component {
                   <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
                 </Pagination> */}
               </CardBody>
+              <CardFooter>
+                    <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleAddClick(event)}><i className="fa fa-dot-circle-o"></i> Add Intent </Button>
+                    </CardFooter>
             </Card>
           </Col>
         </Row>

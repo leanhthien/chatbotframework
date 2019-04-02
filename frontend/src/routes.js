@@ -65,10 +65,9 @@ const routes = [
   { path: '/results', name: 'Results', component: Result },
   //{ path: '/forum', name: 'Forum', component: Forum },
   { path: '/forum/issue', name: 'Issue', component: Issue },
-  //{ path: '/forum/allIssues', name: 'All Issues', component: Issue },
-  { path: '/forum/replyIssue', name: 'Reply Issue', component: ReplyIssue },
+  { path: '/forum/:id/replyIssue', name: 'Reply Issue', component: ReplyIssue },
   { path: '/forum/intent', name: 'Intent', component: Intent },
-  { path: '/forum/createIntent', name: 'createIntent', component: CreateIntent },
+  { path: '/forum/createIntent', name: 'Create Intent', component: CreateIntent },
  
 
 ];

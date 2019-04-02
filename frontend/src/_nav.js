@@ -14,13 +14,6 @@ let baseOnRole = (roleId)=>{
       icon: 'icon-user-follow'
     }
   );
-  // routes.items.push(
-  //   {
-  //     name: 'Forum',
-  //     url: '/forum',
-  //     icon: 'icon-user-follow'
-  //   }
-  // );
   routes.items.push(
     {
       name: 'Issue',
@@ -30,22 +23,8 @@ let baseOnRole = (roleId)=>{
   );
   routes.items.push(
     {
-      name: 'Reply Issue',
-      url: '/forum/replyIssue',
-      icon: 'icon-user-follow'
-    }
-  );
-  routes.items.push(
-    {
       name: 'Intent',
       url: '/forum/intent',
-      icon: 'icon-user-follow'
-    }
-  );
-  routes.items.push(
-    {
-      name: 'Create Intent',
-      url: '/forum/createIntent',
       icon: 'icon-user-follow'
     }
   );
