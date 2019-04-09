@@ -60,7 +60,7 @@ class Intent extends Component {
 
   async getIntents() {
     try {
-      let response = await axios.get(this.apiBaseUrl + 'forum/allIntents', { headers: { "Authorization": `Bearer ${this.token}` } });
+      let response = await axios.get(this.apiBaseUrl + 'forum/intents', { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
         return response.data.data;
       }
@@ -126,7 +126,6 @@ class Intent extends Component {
     this.state.intents.forEach((element, index) => {
       group.push(
         <tr key={element.id}>
-          <td>{index + 1}</td>
           <td title={element.description}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/courses/${element.id}/teacher`}>{element.question}</Link></td>
           <td>
             <button className="card-heelement.idader-action btn-setting btn btn-link"><i className="fa fa-edit" title='Edit intent' onClick={event => this.handleEditClick(event, element.id)}></i></button>
@@ -157,7 +156,6 @@ class Intent extends Component {
                 <Table responsive striped>
                   <thead>
                     <tr>
-                      <th>No</th>
                       <th>Question</th>
                       <th>Action</th>
                     </tr>

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CardGroup,
+  Form,
   FormGroup,
   CardFooter,
+  Label,
+  Input,
   Button,
   Row,
   Col,
@@ -45,7 +48,6 @@ class Forum extends Component {
 
       let issues = await this.getAllIssues();
       this.setState({ issues: issues });
-      console.log(issues);
 
       if (issues) {
         console.log(issues);
@@ -94,7 +96,28 @@ class Forum extends Component {
   }
 
   async handleClick(event) {
-    return this.props.history.push("/forum/createIssue");
+    try {
+      if (!this.state.question) {
+        return
+      }
+      let apiBaseUrl = process.env.REACT_APP_DOMAIN;
+      let payload = {
+        "question": this.state.question,
+      }
+      let response = await axios.post(apiBaseUrl + `forum/createIssue`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
+      if (response.data.data) {
+        return Swal('Success', '', 'success').then(result => {
+          return this.props.history.push(`/forum/createIssue`);
+        })
+      }
+    }
+    catch (error) {
+      console.log(error);
+      if (error.response && error.response.data && error.response.data.code !== 200) {
+        return NotificationManager.error(error.response.data.msg, 'Error!', 5000);
+      }
+      return NotificationManager.error("Something went wrong", 'Error!', 5000);
+    }
   }
 
   
@@ -107,9 +130,9 @@ class Forum extends Component {
     this.state.issues.forEach((element, index) => {
       history.push(
         <tr key={index}>
-          <td title={element.username}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.username}</Link></td>
+          <td>{index + 1}</td>
           <td title={element.question}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.question}</Link></td>
-          <td title={element.last_access}>{element.updatedAt}</td>
+          <td title={element.answer}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.answer}</Link></td>
         </tr>
       )
     })
@@ -123,7 +146,7 @@ class Forum extends Component {
                 <CardGroup>
                   <Card>
                     <CardHeader>
-                      List Issues
+                      Submit issues
                     </CardHeader>
                     <CardBody>
                       <Row>
@@ -133,28 +156,34 @@ class Forum extends Component {
                               <i className="fa fa-align-justify"></i><strong>Issues</strong>
                             </CardHeader>
                             <CardBody>
-                              <FormGroup>                           
-                                <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Create an Issue</Button>                           
-                              </FormGroup>
                               <Table responsive striped>
                                 <thead>
                                   <tr>
-                                    <th>Author</th>
-                                    <th>Title</th>
-                                    <th>Last Active</th>
+                                    <th>No</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {this.genIssuesHistory()}
                                 </tbody>
-                              </Table>                            
+                              </Table>
                             </CardBody>
                           </Card>
                         </Col>
                       </Row>
+                
+                      <Form action="" method="post" className="form-horizontal">
+                        <FormGroup row>
+                          <Col>
+                            <Input sm="10" type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />                  
+                          </Col>
+                          
+                        </FormGroup>
+                      </Form>
                     </CardBody>
                     <CardFooter>
-                    
+                    <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
                     </CardFooter>
 
                   </Card>

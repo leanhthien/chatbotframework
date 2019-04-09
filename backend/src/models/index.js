@@ -17,6 +17,7 @@ const models = {
   Group: sequelize.import(path.resolve(path.join(__dirname, '/group'))),
   Limit: sequelize.import(path.resolve(path.join(__dirname, '/limit'))),
   Issue: sequelize.import(path.resolve(path.join(__dirname, '/issue'))),
+  Reply: sequelize.import(path.resolve(path.join(__dirname, '/reply'))),
   Intent: sequelize.import(path.resolve(path.join(__dirname, '/intent')))
 }
 

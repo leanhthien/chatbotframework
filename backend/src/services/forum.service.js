@@ -3,9 +3,15 @@ const Models = require('../models/index')
 const Op = Models.Sequelize.Op
 class ForumService {
 
+  //Issue
   async getIssue(issueId) {
     try {
-      let issue = await Models.Issue.findOne({ where: { id: issueId, is_delete: { [Op.ne]: 1 }} })
+      let issue = await Models.Issue.findOne({ 
+        include: [{
+          model: Models.Reply,
+          as: "replies" 
+        }], 
+        where: { id: issueId, is_delete: { [Op.ne]: 1 }} })
       return issue
     } catch (e) {
       Logger.error(e)
@@ -13,7 +19,7 @@ class ForumService {
     }
   }
 
-  async getIssues(data, email) {
+  async getIssuesByEmail(email) {
     try {
       let issue = await Models.Issue.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
       return issue
@@ -23,9 +29,10 @@ class ForumService {
     }
   }
 
-  async getAllIssues(email) {
+  async getAllIssues() {
     try {
-      let issues = await Models.Issue.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
+      let issues = await Models.Issue.findAll({ 
+        where: { is_delete: { [Op.ne]: 1 } } })
       return issues
     } catch (e) {
       Logger.error(e)
@@ -35,10 +42,10 @@ class ForumService {
 
   async createIssue(data, email) {
     try {
+      let user = await Models.User.findOne({ where: { email: email } })
       let newIssue = await Models.Issue.create({
-        email: email,
-        question: data.question,
-        answer: ''
+        username: user.username,
+        question: data.question
       })
       return newIssue
     } catch (e) {
@@ -46,21 +53,58 @@ class ForumService {
       return null
     }
   }
+//End issue
 
-  async replyIssue(issueId, data) {
+//Reply
+  async getReply(replyId) {
     try {
-      return await Models.Issue.update(
-        {
-          answer: data.answer
-        },
-        { returning: true, where: { id: issueId } }
-      )
+      let reply = await Models.Reply.findOne({ where: { id: replyId, is_delete: { [Op.ne]: 1 }} })
+      return reply
     } catch (e) {
       Logger.error(e)
       return null
     }
   }
 
+  async getRepliesByIssue(issueId) {
+    try {
+
+      let replies = await Models.Reply.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 }} })
+      return replies
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async getAllReplies() {
+    try {
+      let replies = await Models.Reply.findAll({ where: { is_delete: { [Op.ne]: 1 } } })
+      return replies
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+
+  async createReply(issueId, data, email) {
+    try {
+      let issue  = await Models.Issue.findOne({ where: { id: issueId } })
+      let user = await Models.User.findOne({ where: { email: email } })
+      let newReply = await Models.Reply.create({
+        username: user.username,
+        answer: data.answer
+      })
+      newReply.setIssue(issue)
+      return newReply
+    } catch (e) {
+      Logger.error(e)
+      return null
+    }
+  }
+//End Reply
+
+//Intent
   async getIntent(intentId) {
     try {
       let intent = await Models.Intent.findOne({ where: { id: intentId, is_delete: { [Op.ne]: 1 }} })
@@ -71,20 +115,20 @@ class ForumService {
     }
   }
 
-  async getIntents(data, email) {
+  async getIntents() {
     try {
-      let intent = await Models.Intent.findOne({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
-      return intent
+      let intents = await Models.Intent.findAll({ where: { is_delete: { [Op.ne]: 1 } } })
+      return intents
     } catch (e) {
       Logger.error(e)
       return null
     }
   }
 
-  async getAllIntents(email) {
+  async getAllIntents() {
     try {
-      let intent = await Models.Intent.findAll({ where: { email: email, is_delete: { [Op.ne]: 1 } } })
-      return intent
+      let intents = await Models.Intent.findAll({ where: { is_delete: { [Op.ne]: 1 } } })
+      return intents
     } catch (e) {
       Logger.error(e)
       return null
@@ -119,7 +163,7 @@ class ForumService {
       return null
     }
   }
-
+//End Intent
   
 
 }

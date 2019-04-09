@@ -11,8 +11,7 @@ import {
   Col,
   Card,
   CardHeader,
-  CardBody, 
-  Table
+  CardBody
 } from 'reactstrap';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -26,24 +25,13 @@ class Forum extends Component {
     this.apiBaseUrl = process.env.REACT_APP_DOMAIN;
     this.token = cookie.load('user_token');
     this.state = {
-      issue: {},
-      question: "",
-      answer: ""
+      question: ""
     };
-    this.issueId = this.props.match.params.id;
   }
 
   async componentDidMount() {
     let authen = await this.checkPermission();
     this.setState({ role: authen.role });
-
-    let issue = await this.getIssue();
-    if (issue) {
-      this.setState({ question: issue.question });
-      this.setState({ issue: issue });
-    }
-    console.log(issue)
-  
   }
 
   async checkPermission() {
@@ -63,34 +51,19 @@ class Forum extends Component {
     }
   }
 
-  async getIssue() {
-    try {
-      let response = await axios.get(this.apiBaseUrl + 'forum/' + this.issueId + '/issue', { headers: { "Authorization": `Bearer ${this.token}` } });
-      if (response.data.data) {
-        return response.data.data;
-      }
-      else {
-        return null;
-      }
-    }
-    catch (error) {
-      return null;
-    }
-  }
-
   async handleClick(event) {
     try {
-      if (!this.state.answer) {
+      if (!this.state.question) {
         return Swal('Warning!', 'Please fill all fields', 'warning')
       }
       let apiBaseUrl = process.env.REACT_APP_DOMAIN;
       let payload = {
-        "answer": this.state.answer,
+        "question": this.state.question,
       }
-      let response = await axios.post(apiBaseUrl + `forum/${this.issueId}/createReply`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
+      let response = await axios.post(apiBaseUrl + `forum/createIssue`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
         return Swal('Success', '', 'success').then(result => {
-          return this.props.history.push(`/forum/${this.issueId}/replyIssue`);
+          return this.props.history.push(`/forum/createIntent`);
         })
       }
     }
@@ -104,22 +77,6 @@ class Forum extends Component {
     }
   }
 
-  genIssuesHistory = () => {
-    let history = [];
-    if (!this.state.issue.replies || this.state.issue.replies.length <= 0) return history
-  
-    this.state.issue.replies.forEach((element, index) => {
-      history.push(
-        <tr key={index}>
-          <td title={element.username}>{element.username}</td>
-          <td title={element.answer}>{element.answer}</td>
-          <td title={element.last_access}>{element.updatedAt}</td>
-        </tr>
-      )
-    })
-    return history
-  }
-
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
@@ -129,29 +86,20 @@ class Forum extends Component {
           <Col>
             <CardGroup>
               <Card>
-                <CardHeader value={this.state.question} onChange={event => this.setState({ question: event.target.value })} />
+                <CardHeader>
+                  Create an Issue
+                </CardHeader>
                 <CardBody>
-
-                  <Label htmlFor="input-normal">{this.state.question}</Label>
-                  <Table responsive borderless>
-                    <thead>
-                      
-                    </thead>
-                    <tbody>
-                        {this.genIssuesHistory()}
-                    </tbody>
-                  </Table>
-
                   <Form action="" method="post" className="form-horizontal">
                     <FormGroup>
-                      <Label htmlFor="input-normal">Answer</Label>
-                      <Input type="textarea" id="input-normal" value={this.state.answer} name="input-normal" placeholder="Answer" onChange={event => this.setState({ answer: event.target.value })} />
+                      <Label htmlFor="input-normal">Content</Label>
+                      <Input type="text" id="input-normal" value={this.state.question} name="input-normal" placeholder="Question" onChange={event => this.setState({ question: event.target.value })} />                     
                     </FormGroup>
                   </Form>
                 </CardBody>
                 <CardFooter>
                   <Button type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                  <Button type="reset" size="sm" color="danger" onClick={(event) => this.setState({ answer: '' })}><i className="fa fa-ban"></i> Reset</Button>
+                  <Button type="reset" size="sm" color="danger" onClick={(event) => this.setState({ question: '', answer: '' })}><i className="fa fa-ban"></i> Reset</Button>
                 </CardFooter>
               </Card>
             </CardGroup>

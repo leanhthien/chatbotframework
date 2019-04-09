@@ -1,9 +1,5 @@
 const intent = (sequelize, DataTypes) => {
   const Intent = sequelize.define('intents', {
-    email: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     question: {
       type: DataTypes.STRING,
       allowNull: true

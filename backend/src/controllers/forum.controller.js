@@ -8,6 +8,7 @@ class ForumController {
       this.service = new ForumService()
   }
 
+  //Issue
   async getIssue(req, res) {
     try {
       let issueId = req.params.id
@@ -21,7 +22,7 @@ class ForumController {
 
   async getIssues(req, res) {
     try {
-      let issue = await this.service.getIssues(req.body, req.email)
+      let issue = await this.service.getIssues(req.email)
       return Response.OK(res, issue)
     } catch (e) {
       Logger.error(e)
@@ -31,7 +32,7 @@ class ForumController {
 
   async getAllIssues(req, res) {
     try {
-      let issues = await this.service.getAllIssues(req.email)
+      let issues = await this.service.getAllIssues()
       return Response.OK(res, issues)
     } catch (e) {
       Logger.error(e)
@@ -60,6 +61,52 @@ class ForumController {
       }
   }
 
+
+  //Reply
+  async getReply(req, res) {
+    try {
+      let issueId = req.params.id
+      let issue = await this.service.getReply(issueId)
+      return Response.OK(res, issue)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+  async getReplies(req, res) {
+    try {
+      let issue = await this.service.getReplies(req.email)
+      return Response.OK(res, issue)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+  async getAllReplies(res) {
+    try {
+      let issues = await this.service.getAllReplies()
+      return Response.OK(res, issues)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+  async createReply(req, res) {
+    try {
+      let issueId = req.params.id
+      let reply = await this.service.createReply(issueId, req.body, req.email)
+      return Response.OK(res, reply)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
+
+  // Intent
   async getIntent(req, res) {
     try {
       let intentId = req.params.id
@@ -73,7 +120,7 @@ class ForumController {
 
   async getIntents(req, res) {
     try {
-      let intent = await this.service.getIntents(req.body, req.email)
+      let intent = await this.service.getIntents()
       return Response.OK(res, intent)
     } catch (e) {
       Logger.error(e)
@@ -83,7 +130,7 @@ class ForumController {
 
   async getAllIntents(req, res) {
     try {
-      let intent = await this.service.getAllIntents(req.email)
+      let intent = await this.service.getAllIntents()
       return Response.OK(res, intent)
     } catch (e) {
       Logger.error(e)
