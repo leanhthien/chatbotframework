@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import {
   CardGroup,
   FormGroup,
-  CardFooter,
   Button,
   Row,
   Col,
   Card,
   CardHeader,
   CardBody,
-  Table
+  CardTitle,
+  CardSubtitle,
+  Badge
 } from 'reactstrap';
 import axios from 'axios';
 import cookie from 'react-cookies';
@@ -45,10 +46,8 @@ class Forum extends Component {
 
       let issues = await this.getAllIssues();
       this.setState({ issues: issues });
-      console.log(issues);
 
       if (issues) {
-        console.log(issues);
         issues.forEach(x => {
           var popoverOpens = { ...this.state.popoverOpens }
           popoverOpens[x] = false;
@@ -101,19 +100,41 @@ class Forum extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   genIssuesHistory = () => {
-    let history = [];
-    if (!this.state.issues || this.state.issues.length <= 0) return history
+    let listIssue = [];
+    if (!this.state.issues) return listIssue
+
+    if (this.state.issues.length <= 0) {
+      listIssue.push(
+        
   
-    this.state.issues.forEach((element, index) => {
-      history.push(
-        <tr key={index}>
-          <td title={element.username}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.username}</Link></td>
-          <td title={element.question}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/forum/${element.id}/replyIssue`}>{element.question}</Link></td>
-          <td title={element.last_access}>{element.updatedAt}</td>
-        </tr>
+
       )
-    })
-    return history
+    }
+    else {
+      this.state.issues.forEach((element, index) => {
+
+        // let last_access = new Intl.DateTimeFormat('en-US').format(element.updatedAt)
+  
+        listIssue.push(
+        
+            <Card>     
+              <CardBody>
+                <CardSubtitle className="mb-2 text-muted"><Badge variant="secondary">{element.username}</Badge></CardSubtitle>
+                <CardTitle><Link to={`/forum/${element.id}/replyIssue`}>{element.question}</Link></CardTitle> 
+                <Row>
+                  <Col></Col>
+                  <Col xs lg="2">
+                  <CardSubtitle className="mb-2 text-muted">{element.updatedAt}</CardSubtitle>
+                  </Col>
+                </Row>           
+              </CardBody>
+            </Card>
+  
+        )
+      })
+    }
+  
+    return listIssue
   }
 
   checkViewRole = () => {
@@ -123,40 +144,19 @@ class Forum extends Component {
                 <CardGroup>
                   <Card>
                     <CardHeader>
-                      List Issues
+                    <strong>Issues</strong>
                     </CardHeader>
                     <CardBody>
-                      <Row>
-                        <Col sm="12" xl="12">
-                          <Card>
-                            <CardHeader>
-                              <i className="fa fa-align-justify"></i><strong>Issues</strong>
-                            </CardHeader>
-                            <CardBody>
-                              <FormGroup>                           
-                                <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Create an Issue</Button>                           
-                              </FormGroup>
-                              <Table responsive striped>
-                                <thead>
-                                  <tr>
-                                    <th>Author</th>
-                                    <th>Title</th>
-                                    <th>Last Active</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {this.genIssuesHistory()}
-                                </tbody>
-                              </Table>                            
-                            </CardBody>
-                          </Card>
-                        </Col>
+                      <FormGroup>
+                      <Row>  
+                      <Col></Col>
+                      <Col xs lg="2">              
+                        <Button sm="2" type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Create an Issue</Button>                           
+                      </Col>
                       </Row>
+                      </FormGroup>                      
+                      {this.genIssuesHistory()}
                     </CardBody>
-                    <CardFooter>
-                    
-                    </CardFooter>
-
                   </Card>
                 </CardGroup>
               </Col>

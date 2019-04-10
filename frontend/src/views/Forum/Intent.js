@@ -94,7 +94,7 @@ class Intent extends Component {
   }
 
   handleEditClick(event, id) {
-    return this.props.history.push('');
+    return this.props.history.push("/forum/" + id + "/updateIntent");
   }
 
   handleRemoveClick(event, id) {

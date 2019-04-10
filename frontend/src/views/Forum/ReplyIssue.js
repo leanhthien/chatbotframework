@@ -11,7 +11,11 @@ import {
   Col,
   Card,
   CardHeader,
+  CardText,
   CardBody, 
+  CardTitle,
+  CardSubtitle,
+  Badge,
   Table
 } from 'reactstrap';
 import axios from 'axios';
@@ -27,6 +31,7 @@ class Forum extends Component {
     this.token = cookie.load('user_token');
     this.state = {
       issue: {},
+      issueOwner: "",
       question: "",
       answer: ""
     };
@@ -39,11 +44,10 @@ class Forum extends Component {
 
     let issue = await this.getIssue();
     if (issue) {
+      this.setState({ issueOwner: issue.username });
       this.setState({ question: issue.question });
       this.setState({ issue: issue });
     }
-    console.log(issue)
-  
   }
 
   async checkPermission() {
@@ -104,16 +108,19 @@ class Forum extends Component {
     }
   }
 
-  genIssuesHistory = () => {
+  genListReplies = () => {
     let history = [];
     if (!this.state.issue.replies || this.state.issue.replies.length <= 0) return history
   
     this.state.issue.replies.forEach((element, index) => {
+      let head = element.username + " • " + element.updatedAt;
       history.push(
+      
         <tr key={index}>
-          <td title={element.username}>{element.username}</td>
-          <td title={element.answer}>{element.answer}</td>
-          <td title={element.last_access}>{element.updatedAt}</td>
+          <td>           
+            <CardSubtitle className="mb-2 text-muted">{head}</CardSubtitle>                          
+            <CardText>{element.answer}</CardText>     
+          </td>          
         </tr>
       )
     })
@@ -129,27 +136,29 @@ class Forum extends Component {
           <Col>
             <CardGroup>
               <Card>
-                <CardHeader value={this.state.question} onChange={event => this.setState({ question: event.target.value })} />
+                <CardHeader>
+                <CardSubtitle className="mb-2 text-muted"><Badge variant="secondary">{this.state.issueOwner}</Badge></CardSubtitle>
+                <CardTitle>{this.state.question}</CardTitle>
+                </CardHeader>
                 <CardBody>
-
-                  <Label htmlFor="input-normal">{this.state.question}</Label>
-                  <Table responsive borderless>
-                    <thead>
-                      
-                    </thead>
+                  <Row>
+                    <Col sm="11"></Col>
+                    <CardSubtitle className="mb-2 text-muted">ALL REPLIES</CardSubtitle>
+                  </Row>
+                  
+                    <Table>                 
                     <tbody>
-                        {this.genIssuesHistory()}
-                    </tbody>
-                  </Table>
-
-                  <Form action="" method="post" className="form-horizontal">
-                    <FormGroup>
-                      <Label htmlFor="input-normal">Answer</Label>
-                      <Input type="textarea" id="input-normal" value={this.state.answer} name="input-normal" placeholder="Answer" onChange={event => this.setState({ answer: event.target.value })} />
-                    </FormGroup>
-                  </Form>
+                      {this.genListReplies()}
+                    </tbody>                   
+                  </Table> 
+                                                  
                 </CardBody>
                 <CardFooter>
+                  <Form action="" method="post" className="form-horizontal">
+                    <FormGroup>
+                      <Input type="textarea" id="input-normal" value={this.state.answer} name="input-normal" placeholder="Reply" onChange={event => this.setState({ answer: event.target.value })} />
+                    </FormGroup>
+                  </Form>
                   <Button type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
                   <Button type="reset" size="sm" color="danger" onClick={(event) => this.setState({ answer: '' })}><i className="fa fa-ban"></i> Reset</Button>
                 </CardFooter>

@@ -31,6 +31,7 @@ const CreateIssue = React.lazy(() => import('./views/Forum/CreateIssue'));
 const ReplyIssue = React.lazy(() => import('./views/Forum/ReplyIssue'));
 const Intent = React.lazy(() => import('./views/Forum/Intent'));
 const CreateIntent = React.lazy(() => import('./views/Forum/CreateIntent'));
+const UpdateIntent = React.lazy(() => import('./views/Forum/UpdateIntent'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -68,6 +69,7 @@ const routes = [
   { path: '/forum/:id/replyIssue', name: 'Reply Issue', component: ReplyIssue },
   { path: '/forum/intent', name: 'Intent', component: Intent },
   { path: '/forum/createIntent', name: 'Create Intent', component: CreateIntent },
+  { path: '/forum/:id/updateIntent', name: 'Create Intent', component: UpdateIntent },
  
 
 ];

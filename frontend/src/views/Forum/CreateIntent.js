@@ -65,7 +65,7 @@ class Forum extends Component {
       let response = await axios.post(apiBaseUrl + `forum/createIntent`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
         return Swal('Success', '', 'success').then(result => {
-          return this.props.history.push(`/forum/createIntent`);
+          return this.props.history.push(`/forum/intent`);
         })
       }
     }
