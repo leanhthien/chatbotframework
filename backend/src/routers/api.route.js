@@ -83,18 +83,28 @@ api.post('/submitcode', RequireLogin, codeController.submitCode.bind(codeControl
 api.get('/results', RequireLogin, resultController.getResults.bind(resultController))
 
 // forum
+
+// issue
 api.get('/forum/:id/issue', RequireLogin, forumController.getIssue.bind(forumController))
 api.get('/forum/issues', RequireLogin, forumController.getIssues.bind(forumController))
 api.get('/forum/allIssues', RequireLogin, forumController.getAllIssues.bind(forumController))
 api.post('/forum/createIssue', RequireLogin, forumController.createIssue.bind(forumController))
+api.delete('/forum/:id/issue', RequireLogin, forumController.deleteIssue.bind(forumController))
+
+// reply
 api.get('/forum/:id/reply', RequireLogin, forumController.getReply.bind(forumController))
 api.get('/forum/replies', RequireLogin, forumController.getReplies.bind(forumController))
 api.get('/forum/allReplies', RequireLogin, forumController.getAllReplies.bind(forumController))
 api.post('/forum/:id/createReply', RequireLogin, forumController.createReply.bind(forumController))
+api.delete('/forum/:id/reply', RequireLogin, forumController.deleteReply.bind(forumController))
+
+// intent
 api.get('/forum/:id/intent', RequireLogin, forumController.getIntent.bind(forumController))
 api.get('/forum/intents', RequireLogin, forumController.getIntents.bind(forumController))
 api.get('/forum/allIntents', RequireLogin, forumController.getAllIntents.bind(forumController))
+api.get('/forum/recommendedIntents', RequireLogin, forumController.getRecommendedIntents.bind(forumController))
 api.post('/forum/createIntent', RequireLogin, forumController.createIntent.bind(forumController))
 api.put('/forum/:id/updateIntent', RequireLogin, forumController.updateIntent.bind(forumController))
+api.delete('/forum/:id/intent', RequireLogin, forumController.deleteIntent.bind(forumController))
 
 module.exports = api

@@ -32,12 +32,14 @@ const ReplyIssue = React.lazy(() => import('./views/Forum/ReplyIssue'));
 const Intent = React.lazy(() => import('./views/Forum/Intent'));
 const CreateIntent = React.lazy(() => import('./views/Forum/CreateIntent'));
 const UpdateIntent = React.lazy(() => import('./views/Forum/UpdateIntent'));
+const RecommendedIntents = React.lazy(() => import('./views/Forum/RecommendedIntents'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/teacher', exact: true, name: 'Teacher', component: Teacher },
   { path: '/student', exact: true, name: 'Student', component: Student },
-  { path: '/', exact: true, name: 'Home', component: DefaultLayout },
+  //{ path: '/', exact: true, name: 'Home', component: DefaultLayout },
+  { path: '/', exact: true, name: 'Home', component: Issue },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/courses/:courseId/exercises/:exerciseId/questions/:id/permission', name: 'Permission', component: Permission },
   { path: '/courses/:id/exercises/:exerciseId/questions/create', name: 'QuestionCreate', component: QuestionCreate },
@@ -70,7 +72,8 @@ const routes = [
   { path: '/forum/intent', name: 'Intent', component: Intent },
   { path: '/forum/createIntent', name: 'Create Intent', component: CreateIntent },
   { path: '/forum/:id/updateIntent', name: 'Create Intent', component: UpdateIntent },
- 
+  { path: '/forum/recommendedIntents', name: 'Recommended Intents', component: RecommendedIntents },
+
 
 ];
 

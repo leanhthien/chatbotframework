@@ -15,7 +15,6 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 import cookie from 'react-cookies';
-import Swal from 'sweetalert'
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
@@ -52,29 +51,14 @@ class Forum extends Component {
   }
 
   async handleClick(event) {
-    try {
-      if (!this.state.question) {
-        return Swal('Warning!', 'Please fill all fields', 'warning')
-      }
-      let apiBaseUrl = process.env.REACT_APP_DOMAIN;
-      let payload = {
-        "question": this.state.question,
-      }
-      let response = await axios.post(apiBaseUrl + `forum/createIssue`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
-      if (response.data.data) {
-        return Swal('Success', '', 'success').then(result => {
-          return this.props.history.push(`/forum/issue`);
-        })
-      }
-    }
-    catch (error) {
-      console.log(error);
-      if (error.response && error.response.data && error.response.data.code !== 200) {
-        return NotificationManager.error(error.response.data.msg, 'Error!', 5000);
-      }
-      return NotificationManager.error("Something went wrong", 'Error!', 5000);
 
-    }
+    this.props.history.push({
+      pathname:"/forum/recommendedIntents",
+      state: {
+        question: this.state.question
+      }
+    });
+
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -98,8 +82,8 @@ class Forum extends Component {
                   </Form>
                 </CardBody>
                 <CardFooter>
-                  <Button type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                  <Button type="reset" size="sm" color="danger" onClick={(event) => this.setState({ question: '', answer: '' })}><i className="fa fa-ban"></i> Reset</Button>
+                  <Button type="submit" size="sm" color="primary" onClick={event => this.handleClick(event)}><i className="fa fa-dot-circle-o"></i> Next </Button>
+                  <Button type="reset" size="sm" color="danger" onClick={(event) => this.setState({ question: '' })}><i className="fa fa-ban"></i> Reset</Button>
                 </CardFooter>
               </Card>
             </CardGroup>

@@ -126,7 +126,7 @@ class Intent extends Component {
     this.state.intents.forEach((element, index) => {
       group.push(
         <tr key={element.id}>
-          <td title={element.description}><Link className="card-headelement.ider-action btn-setting btn btn-link" to={`/courses/${element.id}/teacher`}>{element.question}</Link></td>
+          <td title={element.description}>{element.question}</td>
           <td>
             <button className="card-heelement.idader-action btn-setting btn btn-link"><i className="fa fa-edit" title='Edit intent' onClick={event => this.handleEditClick(event, element.id)}></i></button>
             <button className="card-heelement.idader-action btn-setting btn btn-link" id={`popover_${element.id}`} title='Remove intent' onClick={event => this.handleRemoveClick(event, element.id)}><i className="fa fa-trash-o"></i></button>

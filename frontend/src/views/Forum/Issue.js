@@ -106,8 +106,6 @@ class Forum extends Component {
     if (this.state.issues.length <= 0) {
       listIssue.push(
         
-  
-
       )
     }
     else {

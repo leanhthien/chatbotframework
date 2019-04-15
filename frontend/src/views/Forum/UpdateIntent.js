@@ -36,7 +36,7 @@ class Forum extends Component {
     let authen = await this.checkPermission();
     this.setState({ role: authen.role });
 
-    let intent = await this.getIssue();
+    let intent = await this.getIntent();
     if (intent) {
       this.setState({ question: intent.question, answer: intent.answer});
       this.setState({ intent: intent});
@@ -61,7 +61,7 @@ class Forum extends Component {
     }
   }
 
-  async getIssue() {
+  async getIntent() {
     try {
       let response = await axios.get(this.apiBaseUrl + 'forum/' + this.intentId + '/intent', { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
@@ -90,7 +90,7 @@ class Forum extends Component {
       let response = await axios.put(apiBaseUrl + `forum/${this.intentId}/updateIntent`, payload, { headers: { "Authorization": `Bearer ${this.token}` } });
       if (response.data.data) {
         return Swal('Success', '', 'success').then(result => {
-          return this.props.history.push(`/forum/${this.issueId}/updateIntent`);
+          return this.props.history.push(`/forum/intent`);
         })
       }
     }

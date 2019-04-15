@@ -75,7 +75,6 @@ class Forum extends Component {
         return NotificationManager.error(error.response.data.msg, 'Error!', 5000);
       }
       return NotificationManager.error("Something went wrong", 'Error!', 5000);
-
     }
   }
 

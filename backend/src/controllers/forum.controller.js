@@ -61,6 +61,18 @@ class ForumController {
       }
   }
 
+  async deleteIssue (req, res) {
+    try {
+      let issueId = req.params.id
+      let result = await this.service.deleteIssue(issueId)
+      if (!result) return Response.ERROR(res, {}, Response.Message.F000006)
+      return Response.OK(res, result)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+  //End Issue
 
   //Reply
   async getReply(req, res) {
@@ -105,6 +117,19 @@ class ForumController {
     }
   }
 
+  async deleteReply(req, res) {
+    try {
+      let replyId = req.params.id
+      let result = await this.service.deleteReply(replyId)
+      if (!result) return Response.ERROR(res, {}, Response.Message.F000006)
+      return Response.OK(res, result)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+  //End Reply
+
 
   // Intent
   async getIntent(req, res) {
@@ -138,6 +163,16 @@ class ForumController {
     }
   }
 
+  async getRecommendedIntents(req, res) {
+    try {
+      let intent = await this.service.getRecommendedIntents(req.body)
+      return Response.OK(res, intent)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+
   async createIntent(req, res) {
     try {
       let intent = await this.service.createIntent(req.body, req.email)
@@ -158,6 +193,19 @@ class ForumController {
         return Response.ERROR(res, {}, Response.Message.F000001)
       }
   }
+
+  async deleteIntent(req, res) {
+    try {
+      let intentId = req.params.id
+      let result = await this.service.deleteIntent(intentId)
+      if (!result) return Response.ERROR(res, {}, Response.Message.F000006)
+      return Response.OK(res, result)
+    } catch (e) {
+      Logger.error(e)
+      return Response.ERROR(res, {}, Response.Message.F000001)
+    }
+  }
+  //End Intent
 
 }
 
