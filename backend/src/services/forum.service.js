@@ -184,29 +184,29 @@ class ForumService {
 
   async createIntent(data, email) {
 
-    // (async () => {
-    //   try {
-    //     const output = await trainIntent(data.question, data.answer)
-    //     logOutput('main')(output.message)
-    //     process.exit(0)
-    //   } catch (e) {
-    //     console.error('Error during script execution ', e.stack);
-    //     process.exit(1);
-    //   }
-    // })();
+    (async () => {
+      try {
+        const output = await trainIntent(data.question, data.answer)
+        logOutput('main')(output.message)
+        process.exit(0)
+      } catch (e) {
+        console.error('Error during script execution ', e.stack);
+        process.exit(1);
+      }
+    })();
 
   
-    try {
-      let newIntent = await Models.Intent.create({
-        email: email,
-        question: data.question,
-        answer: data.answer
-      })
-      return newIntent
-    } catch (e) {
-      Logger.error(e)
-      return null
-    }
+    // try {
+    //   let newIntent = await Models.Intent.create({
+    //     email: email,
+    //     question: data.question,
+    //     answer: data.answer
+    //   })
+    //   return newIntent
+    // } catch (e) {
+    //   Logger.error(e)
+    //   return null
+    // }
   }
 
   async updateIntent(intentId, data) {
@@ -246,16 +246,25 @@ class ForumService {
 // function for python script
 
 function trainIntent(question, answer) {
-  let intents = []
-  try {
-    intents = await Models.Intent.findAll({ where: { is_delete: { [Op.ne]: 1 } } })
-  } catch (e) {
-    Logger.error(e)
-  }
+
+  // let intents = []
+  // try {
+  //   intents = await Models.Intent.findAll({ where: { is_delete: { [Op.ne]: 1 } } })
+  // } catch (e) {
+  //   Logger.error(e)
+  // }
+
+  // const intents = []
+  // (async() => {
+  //   console.log('1')
+  //   intents = await getAllIntents() 
+  //   console.log('2')
+  // })()
 
   return new Promise((resolve, reject) => {
   
-    const process = spawn('python', ['./chatbot/script.py', intents]);
+    //const process = spawn('python', ['./chatbot/script.py', intents]);
+    const process = spawn('python', ['./chatbot/tokenization/tokenization.py', 'test']);
 
     const out = []
     process.stdout.on(
@@ -282,7 +291,7 @@ function trainIntent(question, answer) {
         return
       }
       try {
-        resolve(JSON.parse(out[0]));
+        resolve(out[0]);
       } catch(e) {
         reject(e);
       }
